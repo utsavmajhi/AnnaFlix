@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.terabyte.annaflix"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -64,5 +64,8 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.airbnb.android:lottie:3.0.0-beta1'
+
+    //bubble bottom navigation
+    implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
 
 }
