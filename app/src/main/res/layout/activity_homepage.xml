@@ -45,15 +45,6 @@
             app:bt_shape="@drawable/transition_background_drawable_search"
             app:bt_title="Search" />
 
-        <com.gauravk.bubblenavigation.BubbleToggleView
-            android:id="@+id/l_item_profile_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bt_colorActive="@color/blue_grey_active"
-            app:bt_colorInactive="@color/blue_grey_inactive"
-            app:bt_icon="@drawable/ic_like"
-            app:bt_shape="@drawable/transition_background_drawable_like"
-            app:bt_title="My Books" />
 
         <com.gauravk.bubblenavigation.BubbleToggleView
             android:id="@+id/l_item_notification"
@@ -63,7 +54,18 @@
             app:bt_colorInactive="@color/green_inactive"
             app:bt_icon="@drawable/ic_playlist"
             app:bt_shape="@drawable/transition_background_drawable_list"
-            app:bt_title="notification" />
+            app:bt_title="Notification" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/l_item_profile_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/blue_grey_active"
+            app:bt_colorInactive="@color/blue_grey_inactive"
+            app:bt_icon="@drawable/ic_downloads"
+            app:bt_shape="@drawable/transition_background_drawable_like"
+            app:bt_title="Downloads" />
+
 
         <com.gauravk.bubblenavigation.BubbleToggleView
             android:id="@+id/l_item_profile"
@@ -73,7 +75,7 @@
             app:bt_colorInactive="@color/purple_inactive"
             app:bt_icon="@drawable/ic_person"
             app:bt_shape="@drawable/transition_background_drawable_person"
-            app:bt_title="Profile" />
+            app:bt_title="Extra" />
     </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
 
 
