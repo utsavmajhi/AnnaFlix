@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent dsp = new Intent(MainActivity.this,exoplayer.class);
+                Intent dsp = new Intent(MainActivity.this,homepage.class);
                 startActivity(dsp);
                 finish();
             }

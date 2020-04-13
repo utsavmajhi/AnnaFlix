@@ -1,4 +1,4 @@
-package com.terabyte.annaflix;
+package com.terabyte.annaflix.EpisodesModel;
 
 public class episodeitemmodel {
 

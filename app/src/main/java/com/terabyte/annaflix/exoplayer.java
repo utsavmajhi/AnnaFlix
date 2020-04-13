@@ -2,6 +2,7 @@ package com.terabyte.annaflix;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,11 +24,17 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 public class exoplayer extends AppCompatActivity {
     SimpleExoPlayerView exoPlayerView;
     SimpleExoPlayer exoPlayer;
-    String videourl="https://storage.kanzaki.ru/ANIME___/3-gatsu_no_Lion/%5bHorribleSubs%5d%203-gatsu%20no%20Lion%20-%2004%20%5b720p%5d.mkv";
+
+
+    String videourl="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exoplayer);
+        Intent intent=getIntent();
+        String episodeurl=intent.getStringArrayExtra("ID_EXTRA")[0];
+        videourl=episodeurl;
+
         exoPlayerView=(SimpleExoPlayerView)findViewById(R.id.exo_player_view2);
         try {
             BandwidthMeter bandwidthMeter=new DefaultBandwidthMeter();
