@@ -55,7 +55,7 @@ public class ClickedItemEnter extends AppCompatActivity {
                         //started from 1 to ignore ../ files
                         for(int i=1;i<list.size();i++)
                         {
-                            vlink=list.get(i).get("VideoLink").toString();
+                            vlink="https://storage.kanzaki.ru/ANIME___/Antique_Bakery/"+list.get(i).get("VideoLink").toString();
                             eptitle="Episode "+i;
                             mallepisodelist.add(new episodeitemmodel(eptitle,vlink," "," "," "));
 

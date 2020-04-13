@@ -67,11 +67,11 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
         private Context context;
         TextView episodename;
 
+
         public EpisodeViewHolder(@NonNull View itemView) {
             super(itemView);
             context=itemView.getContext();
             episodename=itemView.findViewById(R.id.selectepisodename);
-
 
 
         }
