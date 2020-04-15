@@ -1,4 +1,4 @@
-package com.terabyte.annaflix;
+package com.terabyte.annaflix.hmrecyler1models;
 
 public class recommanimitemModel {
 

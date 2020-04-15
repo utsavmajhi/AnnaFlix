@@ -1,4 +1,4 @@
-package com.terabyte.annaflix;
+package com.terabyte.annaflix.hmrecyler1models;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.terabyte.annaflix.ClickedItemEnter;
+import com.terabyte.annaflix.R;
 
 import java.util.ArrayList;
 

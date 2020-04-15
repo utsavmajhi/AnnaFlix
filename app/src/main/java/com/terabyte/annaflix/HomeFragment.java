@@ -1,17 +1,16 @@
 package com.terabyte.annaflix;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,6 +20,10 @@ import com.smarteist.autoimageslider.DefaultSliderView;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderLayout;
 import com.smarteist.autoimageslider.SliderView;
+import com.terabyte.annaflix.hmrecyclermodels2.Hmrecycler2Adapter;
+import com.terabyte.annaflix.hmrecyclermodels2.hmrecycleranimeitemModel;
+import com.terabyte.annaflix.hmrecyler1models.HmRecrecylerAdapter;
+import com.terabyte.annaflix.hmrecyler1models.recommanimitemModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +32,19 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private HmRecrecylerAdapter mrecoanimeadpater;
+    private Hmrecycler2Adapter mrecy2animeadapter;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     private ArrayList<recommanimitemModel> mallanimelist;
+    private ArrayList<hmrecycleranimeitemModel> mallanimelist2;
+
+
     RecyclerView hmRECOrecyclerView;
+    RecyclerView hmrecyler2;
+
     SliderLayout sliderLayout;
     private FirebaseFirestore db;
     public HomeFragment() {
@@ -46,21 +58,76 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_home, container, false);
         mallanimelist=new ArrayList<>();
-        hmRECOrecyclerView=view.findViewById(R.id.recommendationrecyler);
-        db=FirebaseFirestore.getInstance();
+        mallanimelist2=new ArrayList<>();
+        swipeRefreshLayout=view.findViewById(R.id.homeswiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
 
+            @Override
+            public void run() {
+
+                swipeRefreshLayout.setRefreshing(true);
+
+                // Fetching data from server
+                recommendedanimes();
+                animeslistload2();
+            }
+        });
+        hmRECOrecyclerView=view.findViewById(R.id.recommendationrecyler);
+        hmrecyler2=view.findViewById(R.id.r2);
+
+        //firestore initialise
+        db=FirebaseFirestore.getInstance();
+        //firestore initialise complete
+
+        //recyclers iniatiation
         LinearLayoutManager horizontalLayoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         hmRECOrecyclerView.setLayoutManager(horizontalLayoutManager);
+        LinearLayoutManager horizontalLayoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        hmrecyler2.setLayoutManager(horizontalLayoutManager1);
+        //recyclers iniation complete
+
+        //imageslider
         sliderLayout = view.findViewById(R.id.imageSlider);
         sliderLayout.setIndicatorAnimation(IndicatorAnimations.FILL); //set indicator animation by using SliderLayout.Animations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         sliderLayout.setScrollTimeInSec(3); //set scroll delay in seconds :
-
         setSliderViews();
-
+        //image slider
         //set Recommended animes
         recommendedanimes();
-
+        animeslistload2();
+        //views ended
         return view;
+    }
+
+    private void animeslistload2() {
+        mallanimelist2.clear();
+        db.collection("Animedata").orderBy("YearofRelease").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(!queryDocumentSnapshots.isEmpty())
+                {
+                    List<DocumentSnapshot> listofanimes=queryDocumentSnapshots.getDocuments();
+                    for(int i=listofanimes.size()-1;i>=0;i--)
+                    {
+                        String animtitle=listofanimes.get(i).get("Title").toString();
+                        String animimgurl=listofanimes.get(i).get("Title").toString();
+                        String animdescrip=listofanimes.get(i).get("Title").toString();
+                        String animyear=listofanimes.get(i).get("Title").toString();
+
+
+                        mallanimelist2.add(new hmrecycleranimeitemModel(animtitle,animyear,"",animimgurl,"",animdescrip,""));
+
+                    }
+                    mrecy2animeadapter= new Hmrecycler2Adapter(getContext(),mallanimelist2);
+
+                    hmrecyler2.setAdapter(mrecy2animeadapter);
+                    mrecy2animeadapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
+       // swipeRefreshLayout.setRefreshing(false);
     }
 
     private void setSliderViews() {
@@ -109,7 +176,7 @@ public class HomeFragment extends Fragment {
 
     //backend starts from firebase
     private void recommendedanimes() {
-
+        mallanimelist.clear();
         db.collection("Animedata").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -126,8 +193,11 @@ public class HomeFragment extends Fragment {
                         mallanimelist.add(new recommanimitemModel(animtitle,animyear,"",animimgurl,"",animdescrip,""));
 
                     }
+
                     mrecoanimeadpater =new HmRecrecylerAdapter(getContext(),mallanimelist);
                     hmRECOrecyclerView.setAdapter(mrecoanimeadpater);
+                    mrecoanimeadpater.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         });
@@ -135,4 +205,9 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Override
+    public void onRefresh() {
+        recommendedanimes();
+        animeslistload2();
+    }
 }
