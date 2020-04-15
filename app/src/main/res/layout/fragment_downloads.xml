@@ -5,10 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".DownloadsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
+        <Button
+            android:id="@+id/l"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="l1click"
+            android:text="Link1" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="l2clicl"
+            android:text="link2" />
+    </LinearLayout>
 </FrameLayout>
