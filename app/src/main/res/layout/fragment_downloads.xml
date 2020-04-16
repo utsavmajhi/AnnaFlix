@@ -14,7 +14,6 @@
             android:id="@+id/l"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="l1click"
             android:text="Link1" />
 
         <Button
@@ -23,5 +22,11 @@
             android:layout_height="wrap_content"
             android:onClick="l2clicl"
             android:text="link2" />
+
+        <TextView
+            android:id="@+id/d1txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
     </LinearLayout>
 </FrameLayout>
